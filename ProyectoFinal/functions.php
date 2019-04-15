@@ -11,7 +11,7 @@ try {
     $pdo=new PDO($link_connection, $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $text_sql="SELECT usuario.nombre AS CLIENTE, comentarios.comentario AS COMENTARIO,"
-            . " producto.nombre AS PLATO, comentarios.valoracion AS VALORACION FROM comentarios, usuario, producto "
+            . " producto.nombre AS PLATO,producto.foto AS FOTO,comentarios.valoracion AS VALORACION FROM comentarios, usuario, producto "
             . "WHERE usuario.id_usu=comentarios.fk_usu AND producto.id_producto=comentarios.fk_pro AND"
             . " comentarios.valoracion=(SELECT MAX(valoracion) FROM comentarios);";
     $statement=$pdo->prepare($text_sql);
@@ -21,14 +21,15 @@ try {
     $plato="";
     $comentario="";
     $valoracion="";
+    $foto="";
     while($filas_tabla=$statement->fetch(PDO::FETCH_ASSOC)){
         //echo $filas_tabla['CLIENTE']." ".$filas_tabla['PLATO']." ".$filas_tabla['COMENTARIO']." ".$filas_tabla['VALORACION'];
         $cliente=$filas_tabla['CLIENTE'];
         $plato=$filas_tabla['PLATO'];
         $comentario=$filas_tabla['COMENTARIO'];
         $valoracion=$filas_tabla['VALORACION'];
-        
-        echo $cliente." ".$plato." ".$comentario." ".$valoracion;
+        $foto=$filas_tabla['FOTO'];
+        echo $cliente." ".$plato." ".$comentario." ".$valoracion." ".$foto;
     }
 
 }

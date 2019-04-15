@@ -5,6 +5,12 @@
  */
 
 
+
 $(document).ready(function(){
-   //código a ejecutar cuando el DOM está listo para recibir instrucciones.
-}); 
+   $('.comment').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 2000,
+    });
+});

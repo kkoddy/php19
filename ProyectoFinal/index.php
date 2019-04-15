@@ -10,12 +10,14 @@ and open the template in the editor.
         <title>Anapurna Gastrobar</title>
         <meta name="Keywords" content="food"/>
         <meta name="Description" content="Restaurante anapurna"/>
-        <link rel="stylesheet" href="css/style.css" type="text/css"/>
+       <link rel="stylesheet" href="css/style.css" type="text/css"/>
         <script src="jquery-3.4.0.js" type="text/javascript"></script>
         <script src="js/main.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+        <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
     </head>
     <body>
-        <?php
+    <?php
         include 'functions.php';
         ?>
         <div id="base">
@@ -50,9 +52,33 @@ and open the template in the editor.
                 
                 <div class="comment">
                     
-                    <img src="images/food1.jpg"alt="art1">
-                    <p><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
-                </div>
+                   <div>
+                      <img src="images/food1.jpg"alt="art1">
+                     <p><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
+                   git</div>
+                   <div>
+                      <img src="images/food1.jpg"alt="art1">
+                     <p><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
+                   </div>
+                   <div>
+                      <img src="images/food1.jpg"alt="art1">
+                     <p><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
+                   </div>
+                   <div>
+                      <img src="images/food1.jpg"alt="art1">
+                     <p><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
+                   </div>
+                   <div>
+                      <img src="images/food1.jpg"alt="art1">
+                     <p><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
+                   </div>
+                   <div>
+                      <img src="images/food1.jpg"alt="art1">
+                     <p><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
+                   </div>
+                   <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script type="text/javascript" src="slick/slick.min.js"></script>
        
        
          
@@ -68,5 +94,7 @@ and open the template in the editor.
                   </ul>
         </footer>
         </div>
+
+
     </body>
 </html>
