@@ -36,54 +36,59 @@ and open the template in the editor.
      </header>
      
             <section class="main">
-            <h3>contenido principal</h3>
+                  <h3>contenido principal</h3>
                   <article class="article">
-                <header>
-                    <h2>Mejor valorado: <?php echo $plato; ?></h2>
+                      <header>
+                          <h2>Mejor valorado: <?php echo $plato; ?></h2>
                     
-                </header>
-                
-                           </article>
-                     <article class="article">
-                <header>
-                    <h1><?php echo $plato; ?></h1>
-                    
-                </header>
-                
-                <div class="comment">
-                    
-                   <div>
-                      <img src="images/food1.jpg"alt="art1">
-                     <p><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
-                   git</div>
-                   <div>
-                      <img src="images/food1.jpg"alt="art1">
-                     <p><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
-                   </div>
-                   <div>
-                      <img src="images/food1.jpg"alt="art1">
-                     <p><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
-                   </div>
-                   <div>
-                      <img src="images/food1.jpg"alt="art1">
-                     <p><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
-                   </div>
-                   <div>
-                      <img src="images/food1.jpg"alt="art1">
-                     <p><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
-                   </div>
-                   <div>
-                      <img src="images/food1.jpg"alt="art1">
-                     <p><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
-                   </div>
-                   <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-  <script type="text/javascript" src="slick/slick.min.js"></script>
-       
-       
-         
-        </section>
+                      </header>
+                    </article>
 
+                     <article class="article">
+                      <header>
+                       <h1><?php echo $plato; ?></h1>
+                    
+                      </header>
+                
+              <div class="comment">
+                    
+                   <div>
+                     
+                     <p> <img src="images/food1.jpg"alt="art1"><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
+                   </div>
+
+                   <div>
+                  
+                     <p> <img src="images/food1.jpg"alt="art1"><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
+                   </div>
+
+                   <div>
+                   
+                     <p> <img src="images/food1.jpg"alt="art1"><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
+                   </div>
+
+                   <div>
+                      
+                     <p> <img src="images/food1.jpg"alt="art1"><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
+                   </div>
+
+                   <div>
+                  
+                     <p> <img src="images/food1.jpg"alt="art1"><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
+                   </div>
+
+                   <div>
+                    
+                     <p> <img src="images/food1.jpg"alt="art1"><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
+                   </div>
+
+                </div>   
+                 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>    
+                 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+                 <script type="text/javascript" src="slick/slick.min.js"></script>
+               
+            </section>
+  
             
         <footer>
                <ul>
