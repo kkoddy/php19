@@ -25,8 +25,8 @@ and open the template in the editor.
                 <nav class="nav">
                
                   <ul>
-                    <li><a href="#">Bienvenido</a></li>
-                    <li><a href="#">Menú</a></li>
+                    <li><a href="index.php">Bienvenido</a></li>
+                    <li><a href="menu.php">Menú</a></li>
                     <li><a href="#">Media</a></li>
                     <li><a href="#">Nosotros</a></li>
                     <li><a href="#">Login</a></li>
@@ -36,57 +36,36 @@ and open the template in the editor.
      </header>
      
             <section class="main">
-                  <h3>contenido principal</h3>
-                  <article class="article">
-                      <header>
-                          <h2>Mejor valorado: <?php echo $plato; ?></h2>
-                    
-                      </header>
-                    </article>
-
-                     <article class="article">
-                      <header>
-                       <h1><?php echo $plato; ?></h1>
-                    
-                      </header>
-                
-              <div class="comment">
-                    
-                   <div>
-                     
-                     <p> <img src="images/food1.jpg"alt="art1"><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
-                   </div>
-
-                   <div>
-                  
-                     <p> <img src="images/food1.jpg"alt="art1"><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
-                   </div>
-
-                   <div>
-                   
-                     <p> <img src="images/food1.jpg"alt="art1"><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
-                   </div>
-
-                   <div>
-                      
-                     <p> <img src="images/food1.jpg"alt="art1"><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
-                   </div>
-
-                   <div>
-                  
-                     <p> <img src="images/food1.jpg"alt="art1"><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
-                   </div>
-
-                   <div>
-                    
-                     <p> <img src="images/food1.jpg"alt="art1"><?php echo $cliente."<br>".$comentario."<br> Valoración:".$valoracion;?> </p>
-                   </div>
-
-                </div>   
-                 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>    
-                 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-                 <script type="text/javascript" src="slick/slick.min.js"></script>
-               
+                <article class="article">
+                      <div class="comment">
+                          <div>
+                            <p><a href="valoraciones.php?producto=sopa"> <img src="images/food1.jpg"alt="art1"><?php echo MejorValorado('sopa');?></a> </p>
+                          </div>
+                          <div>
+                            
+                            <p><a href="valoraciones.php?producto=estofado"> <img src="images/food1.jpg"alt="art1"><?php echo MejorValorado('estofado');?></a> </p>
+                          </div>
+                          <div>
+                            
+                            <p><a href="valoraciones.php?producto=cocido"> <img src="images/food1.jpg"alt="art1"><?php echo MejorValorado('cocido');?></a> </p>
+                          </div>
+                          <div>
+                            
+                            <p><a href="valoraciones.php?producto=lentejas"> <img src="images/food1.jpg"alt="art1"><?php echo MejorValorado('lentejas');?></a> </p>
+                          </div>
+                          <div>
+                            
+                            <p><a href="valoraciones.php?producto=sopa"> <img src="images/food1.jpg"alt="art1"><?php echo MejorValorado('sopa');?></a> </p>
+                          </div>
+                          <div>
+                            
+                            <p><a href="valoraciones.php?producto=sopa"> <img src="images/food1.jpg"alt="art1"><?php echo MejorValorado('sopa');?></a> </p>
+                          </div>
+                        </div>   
+                        <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>    
+                        <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+                        <script type="text/javascript" src="slick/slick.min.js"></script>
+                  </article>
             </section>
   
             
@@ -98,7 +77,7 @@ and open the template in the editor.
                     <li><a href="#">Contacto</a></li>
                   </ul>
         </footer>
-        </div>
+    </div>
 
 
     </body>
