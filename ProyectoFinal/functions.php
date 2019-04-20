@@ -48,9 +48,83 @@ function MejorValorado($producto){
         //echo "Trabajo finalizado";
     }
 }
+//=====================================================================================
+
+//LOGIN
+$login="";
+
+$data=$_POST;
+if($_POST){
+   
+    $usuario=isset($data['user'])?$data['user']: "";
+    $contrasena=isset($data['pass'])?$data['pass']: "";
+
+
+    
+    $cont=0;
+
+    
+
+    
+    
+        
+        if ($usuario!=null && $contrasena!=null){
+            try {
+                 
+                
+                
+                    
+                            $pdo=new PDO($link_connection, $user, $pass);
+                            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                            $login_sql="SELECT login, pass FROM usuario WHERE login=:usu AND pass=:pass;";
+                            $statement=$pdo->prepare($login_sql);
+                            $statement->execute([':usu'=>$_POST['user'],':pass'=>$_POST['pass']]);
+                            if ($statement->rowCount()){
+                                
+                                $cont++;
+                                echo "ENTRASTE".$cont." vez";
+                                if ($cont>0){
+                                    unset($_COOKIE["usuario"]);
+                                    //session_destroy();
+                                    $cont=0;
+                                }
+                                    
+
+                                    setCookie("usuario",$usuario);
+                                    session_name($usuario);
+                                    session_start();
+                                   
+                                    //$_SESSION['user'] =$_POST['user'] ;
+                                    //$logueado = $_SESSION['user'];
+                                    $login="¡Bienvenido ".session_name()."!<br>";
+                                
+                            
+                            }else{
+                        
+                                $login= "<p style='color:red;'>Login incorrecto</p>";
+                            }
+                        
+            }
+            catch(PDOException $e){
+                echo "Ha ocurrido un error". $e->getMessage();
+            }
+            finally{
+                $pdo=null;
+                //echo "Trabajo finalizado";
+            }
+        
+        
+        }else{
+            $login="<p>Introduce un usuario valido<p><br>";
+        }
+
+
+    }
+//======================================================================================
+
 function CalcularValoracionMedia($producto){
     try {
-        $host=$GLOBALS['host'];
+        
         $connection_string=$GLOBALS['link_connection'];
         $user=$GLOBALS['user'];
         $pass=$GLOBALS['pass'];
@@ -74,7 +148,7 @@ function CalcularValoracionMedia($producto){
 }
 function TodosLosComentariosProducto($producto){
     try {
-        $host=$GLOBALS['host'];
+      
         $connection_string=$GLOBALS['link_connection'];
         $user=$GLOBALS['user'];
         $pass=$GLOBALS['pass'];
@@ -99,7 +173,7 @@ function TodosLosComentariosProducto($producto){
 
 function getPrecio($producto){
     try {
-        $host=$GLOBALS['host'];
+        
         $connection_string=$GLOBALS['link_connection'];
         $user=$GLOBALS['user'];
         $pass=$GLOBALS['pass'];
@@ -120,3 +194,58 @@ function getPrecio($producto){
         $pdo=null;
     }
 }
+
+function getFoto($producto){
+    try {
+       
+        $connection_string=$GLOBALS['link_connection'];
+        $user=$GLOBALS['user'];
+        $pass=$GLOBALS['pass'];
+
+        $pdo=new PDO($connection_string, $user, $pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $statement=$pdo->prepare("SELECT foto FROM producto WHERE nombre=:producto");
+       $statement->execute([':producto'=>$producto]);
+
+        while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){
+            echo "'images/".$resultado_consulta["foto"]."'";
+        }
+
+    }catch(PDOException $e){
+            echo "Ha ocurrido un error". $e->getMessage();
+    
+    }finally{
+        $pdo=null;
+    }
+}
+//===========================================================================
+if ($_POST){
+    $newname=isset($data['newname'])?$data['newname']: "";
+     $apellidos=isset($_POST['lastname'])?$data['lastname']: "";
+     $mail=isset($data['mail'])?$data['mail']: "";
+     $age=isset($data['age'])?$data['age']: "";
+     $newuser=isset($data['newuser'])?$data['newuser']: "";
+     $newpass=isset($data['newpass'])?$data['newpass']: "";
+    
+ 
+    if ($newname!=null && $newuser!=null && $newpass!=null && $mail!=null){
+        try {
+        
+        
+
+            $pdo=new PDO($link_connection, $user, $pass);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $statement=$pdo->prepare("INSERT INTO usuario (nombre,login,pass,correo,apellidos,edad) VALUES (?,?,?,?,?,?)");
+        $statement->execute(array($newname,$newuser,$newpass,$mail,$apellidos,$age));
+            $login="<p style='color:green'>Usuario registrado</p><br>";
+      
+        }catch(PDOException $e){
+                echo "Ha ocurrido un error". $e->getMessage();
+                //echo $newname;
+        }finally{
+            $pdo=null;
+        }
+
+        }
+    }
+//===========================================================================

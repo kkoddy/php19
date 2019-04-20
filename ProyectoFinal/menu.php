@@ -29,7 +29,11 @@ and open the template in the editor.
                     <li><a href="menu.php">Menú</a></li>
                     <li><a href="#">Media</a></li>
                     <li><a href="#">Nosotros</a></li>
-                    <li><a href="#">Login</a></li>
+                    <li><a href="login.php"><?php if (isset($_COOKIE['usuario'])){
+                        echo $_COOKIE['usuario'];
+                      }else{
+                        echo "Login";
+                      }?></a></li>
                   </ul>
                 
                 </nav>
@@ -46,24 +50,35 @@ and open the template in the editor.
                       <th><h2>Precio</h2></th>
                     </tr>
                     <tr>
-                      <td><p><a href="valoraciones.php?producto=sopa"><img src="images/food1.jpg"alt="art1"></a></p></td>
+                      <td><p><a href="valoraciones.php?producto=sopa"><img src=<?php echo getFoto('sopa');?> alt="art1"></a></p></td>
                       <td><p><?php echo CalcularValoracionMedia("sopa");?></p></td>
                       
                       <td><p><?php echo getPrecio("sopa")?></p></td>
                     </tr>
                     <tr>
-                    <td><p><a href="valoraciones.php?producto=cocido"><img src="images/food1.jpg"alt="art1"></a></p></td>
-                    <td><p><?php echo CalcularValoracionMedia("cocido");?></p></td>
+                     <td><p><a href="valoraciones.php?producto=cocido"><img src=<?php echo getFoto('cocido');?> alt="art1"></a></p></td>
+                     <td><p><?php echo CalcularValoracionMedia("cocido");?></p></td>
                       
-                    <td><p><?php echo getPrecio("cocido")?></p></td>
+                      <td><p><?php echo getPrecio("cocido")?></p></td>
                     </tr>
                     <tr>
-                    <td><p><a href="valoraciones.php?producto=estofado"><img src="images/food1.jpg"alt="art1"></a></p></td>
-                    <td><p><?php echo CalcularValoracionMedia("estofado");?></p></td>
+                     <td><p><a href="valoraciones.php?producto=estofado"><img src=<?php echo getFoto('estofado');?> alt="art1"></a></p></td>
+                     <td><p><?php echo CalcularValoracionMedia("estofado");?></p></td>
                    
-                    <td><p><?php echo getPrecio("estofado")?></p></td>
+                      <td><p><?php echo getPrecio("estofado")?></p></td>
                     </tr>
-                    
+                    <tr>
+                     <td><p><a href="valoraciones.php?producto=pisto"><img src=<?php echo getFoto('pisto');?> alt="art1"></a></p></td>
+                     <td><p><?php echo CalcularValoracionMedia("estofado");?></p></td>
+                   
+                      <td><p><?php echo getPrecio("pisto")?></p></td>
+                    </tr>
+                    <tr>
+                     <td><p><a href="valoraciones.php?producto=lentejas"><img src=<?php echo getFoto('lentejas');?> alt="art1"></a></p></td>
+                     <td><p><?php echo CalcularValoracionMedia("estofado");?></p></td>
+                   
+                      <td><p><?php echo getPrecio("lentejas")?></p></td>
+                    </tr>
 
 
                 </table>

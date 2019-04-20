@@ -29,7 +29,11 @@ and open the template in the editor.
                     <li><a href="menu.php">Menú</a></li>
                     <li><a href="#">Media</a></li>
                     <li><a href="#">Nosotros</a></li>
-                    <li><a href="#">Login</a></li>
+                    <li><a href="login.php"><?php if (isset($_COOKIE['usuario'])){
+                        echo $_COOKIE['usuario'];
+                      }else{
+                        echo "Login";
+                      }?></a></li>
                   </ul>
                 
                 </nav>
@@ -46,13 +50,23 @@ and open the template in the editor.
                       <th><h2>Votos</h2></th>
                     </tr>
                     <tr>
-                      <td><p><img src="images/food1.jpg"alt="art1"></p></td>
+                      <td><p><img src=<?php echo getFoto($_GET['producto']);?> alt="art1"></p></td>
                       <td><p><?php echo TodosLosComentariosProducto($_GET['producto']);?></p></td>
                 
                     </tr>
                     <tr>
                         <td>
-                        <form method="GET" action="menu.php">
+                          <?php 
+                          if(isset($_COOKIE['usuario'])){
+                            $verVoto="initial";
+                          }else{
+                            $verVoto="none";
+                            echo "<h2 style='color:red'>Registrate para votar nuestros platos</h2>";
+                          }
+                          
+                          
+                          ?>
+                        <form method="POST" action="menu.php" style='display:<?php echo $verVoto;?>'>
                             <input type="radio" name="voto" value="0"> 0
                             <input type="radio" name="voto" value="1"> 1
                             <input type="radio" name="voto" value="2"> 2

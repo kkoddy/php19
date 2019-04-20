@@ -43,5 +43,20 @@ $(document).ready(function(){
         // settings: "unslick"
         // instead of a settings object
       ]
+    
     });
+
+  
+
+
+
+
+
+
+
 });
+
+function registrar(){
+  $(".login").hide();
+  $(".new").toggle();
+};
