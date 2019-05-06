@@ -250,3 +250,30 @@ if ($_POST){
         }
     }
 //===========================================================================
+function verDescuentos(){
+    try {
+        
+        $connection_string=$GLOBALS['link_connection'];
+        $user=$GLOBALS['user'];
+        $pass=$GLOBALS['pass'];
+
+        $pdo=new PDO($connection_string, $user, $pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $statement=$pdo->prepare("SELECT login, descuento FROM usuario WHERE descuento > 0");
+       $statement->execute();
+
+        while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){
+            echo "<tr>
+            <td>".$resultado_consulta["login"]."</td><td>".$resultado_consulta["descuento"]."</td><td><input type='text'></td>
+            </tr>";
+          
+            
+        }
+
+    }catch(PDOException $e){
+            echo "Ha ocurrido un error". $e->getMessage();
+    
+    }finally{
+        $pdo=null;
+    }
+}
