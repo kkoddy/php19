@@ -69,13 +69,13 @@ and open the template in the editor.
                     </tr>
                     <tr>
                      <td><p><a href="valoraciones.php?producto=pisto"><img src=<?php echo getFoto('pisto');?> alt="art1"></a></p></td>
-                     <td><p><?php echo CalcularValoracionMedia("estofado");?></p></td>
+                     <td><p><?php echo CalcularValoracionMedia("pisto");?></p></td>
                    
                       <td><p><?php echo getPrecio("pisto")?></p></td>
                     </tr>
                     <tr>
                      <td><p><a href="valoraciones.php?producto=lentejas"><img src=<?php echo getFoto('lentejas');?> alt="art1"></a></p></td>
-                     <td><p><?php echo CalcularValoracionMedia("estofado");?></p></td>
+                     <td><p><?php echo CalcularValoracionMedia("lentejas");?></p></td>
                    
                       <td><p><?php echo getPrecio("lentejas")?></p></td>
                     </tr>

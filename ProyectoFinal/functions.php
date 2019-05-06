@@ -61,7 +61,7 @@ if($_POST){
 
 
     
-    $cont=0;
+ 
 
     
 
@@ -81,17 +81,18 @@ if($_POST){
                             $statement->execute([':usu'=>$_POST['user'],':pass'=>$_POST['pass']]);
                             if ($statement->rowCount()){
                                 
-                                $cont++;
-                                echo "ENTRASTE".$cont." vez";
-                                if ($cont>0){
+                               
+                                //echo "ENTRASTE".$cont." vez";
+                                if (isset($_COOKIE["usuario"])){
                                     unset($_COOKIE["usuario"]);
                                     //session_destroy();
-                                    $cont=0;
+                                  
                                 }
                                     
 
                                     setCookie("usuario",$usuario);
                                     session_name($usuario);
+                                 
                                     session_start();
                                    
                                     //$_SESSION['user'] =$_POST['user'] ;
