@@ -261,10 +261,11 @@ function verDescuentos(){
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $statement=$pdo->prepare("SELECT login, descuento FROM usuario WHERE descuento > 0");
        $statement->execute();
-
+//CONTRUIMOS UN FORMULARIO POR CADA USUARIO CON UN CAMPO HIDDEN PARA PASAR TAMBIEN EL NOMBRE DEL USUARIO
         while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){
             echo "<tr>
-            <td>".$resultado_consulta["login"]."</td><td>".$resultado_consulta["descuento"]."</td><td><input type='text'></td>
+            <td>".$resultado_consulta["login"]."</td><td>".$resultado_consulta["descuento"]." %</td><td><form method='POST'><input type='text' name='descuento' class='form-control input-sm'><input type='hidden' name='dusuario' value=".$resultado_consulta["login"]."><input class='btn btn-primary btn-sm' type='submit' value='Guardar'>
+            </form></td>
             </tr>";
           
             
@@ -277,3 +278,39 @@ function verDescuentos(){
         $pdo=null;
     }
 }
+
+/*RECOGEMOS LOS PARAMETROS PARA ACTUALIZAR LOS DESCUENTOS */
+if ($_POST){
+    $descuento=isset($data['descuento'])?$data['descuento']: "";
+    $dusuario=isset($data['dusuario'])?$data['dusuario']: "";
+    $aviso="";
+    //Nos aseguramos que no esta vacio el parametro
+    if ($descuento!=null && $dusuario!=null){
+        //Nos aseguramos que es un numero antes de hacer la consulta y que no vamos ha regalar el pruducto, como max 75% de descuento
+        if(is_numeric($descuento) && $descuento<=75){
+        try {
+           
+        
+
+            $pdo=new PDO($link_connection, $user, $pass);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $statement=$pdo->prepare("UPDATE usuario SET descuento=? WHERE login=?");
+        $statement->execute(array($descuento,$dusuario));
+        $aviso="<div class='alert alert-success'>
+        <strong>Guardado:</strong> Datos guardados correctamente.
+      </div>";
+      
+        }catch(PDOException $e){
+                echo "Ha ocurrido un error". $e->getMessage();
+                //echo $newname;
+        }finally{
+            $pdo=null;
+        }
+
+        }else{
+            $aviso="<div class='alert alert-danger'>
+            <strong>Aviso:</strong> Datos incorrectos.
+          </div>";
+        }
+    }
+    }
