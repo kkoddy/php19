@@ -31,6 +31,7 @@ and open the template in the editor.
                     <li><a href="#">Nosotros</a></li>
                     <li><a href="login.php"><?php if (isset($_SESSION['user'])){
                         echo $_SESSION['user'];
+                  
                       }else{
                         echo "Login";
                       }?></a></li>
@@ -48,16 +49,16 @@ and open the template in the editor.
 
 
                   
-                        <form method="POST">
-                            Usuario:
-                            <input type="text" name="user"><br>
-                            Contraseña:
-                            <input type="password" name="pass"><br>  
-                   
-                            <input type="submit" value="Entrar"><br>       
-                        </form> 
-                          <?php echo $login;?>
-                          <input type="button" onclick="registrar()" value="Registrar">
+                            <form method="POST">
+                                Usuario:
+                                <input type="text" name="user"><br>
+                                Contraseña:
+                                <input type="password" name="pass"><br>  
+                      
+                                <input type="submit" value="Entrar"><br>       
+                            </form> 
+                              <?php echo $login;?>
+                              <input type="button" onclick="registrar()" value="Registrar">
                         </div>
                       
                         <div class="new">

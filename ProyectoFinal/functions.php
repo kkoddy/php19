@@ -50,11 +50,15 @@ function MejorValorado($producto){
 }
 //=====================================================================================
 
-//LOGIN
+//LOGIN DE USUARIOS
 $login="";
+if ($_POST){
+    $data=$_POST;
+}else{
+    $data=$_GET;
+}
 
-$data=$_POST;
-if($_POST){
+if($data){
    
     $usuario=isset($data['user'])?$data['user']: "";
     $contrasena=isset($data['pass'])?$data['pass']: "";
@@ -259,12 +263,12 @@ function verDescuentos(){
 
         $pdo=new PDO($connection_string, $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $statement=$pdo->prepare("SELECT login, descuento FROM usuario WHERE descuento > 0");
+        $statement=$pdo->prepare("SELECT login, descuento FROM usuario");
        $statement->execute();
 //CONTRUIMOS UN FORMULARIO POR CADA USUARIO CON UN CAMPO HIDDEN PARA PASAR TAMBIEN EL NOMBRE DEL USUARIO
         while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){
             echo "<tr>
-            <td>".$resultado_consulta["login"]."</td><td>".$resultado_consulta["descuento"]." %</td><td><form method='POST'><input type='text' name='descuento' class='form-control input-sm'><input type='hidden' name='dusuario' value=".$resultado_consulta["login"]."><input class='btn btn-primary btn-sm' type='submit' value='Guardar'>
+            <td>".$resultado_consulta["login"]."</td><td>".$resultado_consulta["descuento"]." %</td><td><form method='POST'><input type='text' name='descuento' class='form-control input-sm'><input type='hidden' name='dusuario' value=".$resultado_consulta["login"]."> <input class='btn btn-primary btn-sm' type='submit' value='Guardar'>
             </form></td>
             </tr>";
           
@@ -309,8 +313,77 @@ if ($_POST){
 
         }else{
             $aviso="<div class='alert alert-danger'>
-            <strong>Aviso:</strong> Datos incorrectos.
+            <strong>Aviso:</strong> Introduzca solo números y/o un descuento máximo del 75%.
           </div>";
         }
     }
+    }
+    //=======LOGIN SUPERUSUARIO=================
+    
+   if(!isset($_COOKIE['admin'])){
+       //si no existe la cookie de admin entonces es que no ha logueado
+       //muestro login y oculto el panel, si existe es que ha logueado oculto login y muestro panel y evitamos que nos oculte el form de descuentos cuando modifiquemos el descuento de los clientes
+        $ver_login="block";
+        $ver_panel="none";
+   }else{
+    $ver_login="none";
+    $ver_panel="block";
+   }
+    if($data){
+       
+        $userAdmin=isset($data['superuser'])?$data['superuser']: "";
+        $passAdmin=isset($data['superuserpass'])?$data['superuserpass']: "";
+        if ($userAdmin!=null && $passAdmin!=null){
+            try {
+                 
+                
+               
+                    
+                            $pdo=new PDO($link_connection, $user, $pass);
+                            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                            $login_sql="SELECT usuario, password FROM administradores WHERE usuario=:usu AND password=:pass;";
+                            $statement=$pdo->prepare($login_sql);
+                            $statement->execute([':usu'=>$userAdmin,':pass'=>$passAdmin]);
+                            if ($statement->rowCount()){
+                                
+                               
+                             
+                                    
+
+                                    setCookie("admin",$userAdmin);
+                                    session_name($userAdmin);
+                                 
+                                    session_start();
+                                   
+
+                                        $ver_login="none";
+                                        $ver_panel="block";
+                                    
+
+                                    //$_SESSION['user'] =$_POST['user'] ;
+                                    //$logueado = $_SESSION['user'];
+                                    $login="¡Bienvenido ".session_name()."!";
+
+                                  
+                                    $aviso1="<div class='alert alert-success'>
+                                    <strong>Inicio de sesion correcto:</strong>".$login."</div>";
+                            }else{
+                        
+                                $aviso1="<div class='alert alert-danger'>
+                                <strong>Aviso:</strong> Login Incorrecto.</div>";
+                              
+                            }
+                        
+            }
+            catch(PDOException $e){
+                echo "Ha ocurrido un error". $e->getMessage();
+            }
+            finally{
+                $pdo=null;
+                //echo "Trabajo finalizado";
+            }
+
+        }
+
+
     }

@@ -7,7 +7,7 @@
 <html lang="es">
     <head>
         <title>Panel de administrador</title>
-   
+        <link rel="stylesheet" href="css/estiloparcial.css" type="text/css"/>
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
@@ -19,11 +19,33 @@
         
     </head>
     <body>
+    <?php
+             $aviso1=isset($aviso1)?$aviso1: "";
+             echo $aviso1;
         
-        <div class="table-responsive">
-            <h1>Usuarios</h1>
+        
+        ?>
+        <div class="login col-md-2" id="loginSuperuser" style="display:<?=$ver_login;?>">
+      
+            <form method="POST" class="form">
+                <div class="form-group rounded">
+                    <label>Usuario</label>
+                    <input type="text" class="form-control" name="superuser" aria-describedby="emailHelp" placeholder="Usuario">
+                    
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="superuserpass" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Entrar <i class="fas fa-sign-in-alt"></i></button>
+            </form>
+        </div>
+        <div class="table-responsive" id="tabla_usuarios" style="display:<?=$ver_panel;?>">
+     
+            <h1>Descuentos</h1>
            <?php  $aviso=isset($aviso)?$aviso: "";
             echo $aviso;
+           
            ?>
             <table id="tablaUsuarios" class="table table-striped table-bordered">
                     <thead>
