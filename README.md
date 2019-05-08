@@ -1,5 +1,5 @@
 # php19
-NoobProyects
+Proyecto PHP
 <<<<<<< HEAD
 Proyecto Web Restaurante con fines educativos
 =======
