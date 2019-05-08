@@ -1,4 +1,4 @@
-# php19
+# Proyecto 
 Proyecto PHP
 <<<<<<< HEAD
 Proyecto Web Restaurante con fines educativos
