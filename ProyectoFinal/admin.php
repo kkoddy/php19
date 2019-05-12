@@ -25,8 +25,8 @@
         
         
         ?>
-        <div class="login col-md-2" id="loginSuperuser" style="display:<?=$ver_login;?>">
-      
+        <div class="container" id="loginSuperuser" style="display:<?=$ver_login;?>">
+        <div class="col-md-auto">
             <form method="POST" class="form">
                 <div class="form-group rounded">
                     <label>Usuario</label>
@@ -40,13 +40,17 @@
                 <button type="submit" class="btn btn-primary">Entrar <i class="fas fa-sign-in-alt"></i></button>
             </form>
         </div>
-        <div class="table-responsive" id="tabla_usuarios" style="display:<?=$ver_panel;?>">
-     
-            <h1>Descuentos</h1>
+
+        </div>
+        <div class="table-responsive container-fluid" id="tabla_usuarios" style="display:<?=$ver_panel;?>">
+              
+            <h1 class="fa">Descuentos para Clientes</h1>
+             
            <?php  $aviso=isset($aviso)?$aviso: "";
             echo $aviso;
            
            ?>
+          
             <table id="tablaUsuarios" class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -63,6 +67,7 @@
                     
 
             </table>
+            <a href="index.php"><i class="btn btn-warning">Volver</i></a>
         </div>
         <script type="text/javascript">
            $(document).ready(function(){
@@ -95,7 +100,7 @@
             });
        </script>
 
-
+            
 
     </body>
 </html>
