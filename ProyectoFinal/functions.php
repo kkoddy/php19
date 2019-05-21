@@ -2,11 +2,14 @@
 /*Preparamos la conexion a la base de datos*/
 $host='localhost';
 $user='root';
-$pass='root';
 $database='restaurante';
+$pass='root';
 $link_connection="mysql:host=$host;dbname=$database;";
 //cargamos al principio la consulta que devuelve la comida mas votada y el usuario que la voto
-
+//$prefix=substr(uniqid('', true), -5);
+//session_id($prefix);
+//session_name('invitado');
+//session_start();
 
 function MejorValorado($producto){
     $host=$GLOBALS['host'];
@@ -86,27 +89,23 @@ if($data){
                             if ($statement->rowCount()){
                                 
                                
-                                //echo "ENTRASTE".$cont." vez";
-                                if (isset($_COOKIE["usuario"])){
-                                    unset($_COOKIE["usuario"]);
-                                    //session_destroy();
-                                  
-                                }
+                                //Si hay otra cookie de un usuario anterior de destrulle
+                          
                                     
-
+                                   
                                     setCookie("usuario",$usuario);
                                     session_name($usuario);
-                                 
-                                    session_start();
+                                  
                                    
-                                    //$_SESSION['user'] =$_POST['user'] ;
-                                    //$logueado = $_SESSION['user'];
-                                    $login="¡Bienvenido ".session_name()."!<br>";
-                                
+                                   
+                                 
+                                    
+                                    header("Location: index.php", true, 301);
+                                    exit();
                             
                             }else{
                         
-                                $login= "<p style='color:red;'>Login incorrecto</p>";
+                                $login="<div class='alert alert-danger span8' role='alert'>Login incorrecto</div>";
                             }
                         
             }
@@ -223,7 +222,7 @@ function getFoto($producto){
         $pdo=null;
     }
 }
-//===========================================================================
+//==================REGISTRAR NUEVO USUARIO===================================
 if ($_POST){
     $newname=isset($data['newname'])?$data['newname']: "";
      $apellidos=isset($_POST['lastname'])?$data['lastname']: "";
@@ -242,7 +241,7 @@ if ($_POST){
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $statement=$pdo->prepare("INSERT INTO usuario (nombre,login,pass,correo,apellidos,edad) VALUES (?,?,?,?,?,?)");
         $statement->execute(array($newname,$newuser,$newpass,$mail,$apellidos,$age));
-            $login="<p style='color:green'>Usuario registrado</p><br>";
+            $login="<div class='alert alert-success'><strong>Guardado:</strong> Datos guardados correctamente.</div>";
       
         }catch(PDOException $e){
                 echo "Ha ocurrido un error". $e->getMessage();
@@ -251,6 +250,8 @@ if ($_POST){
             $pdo=null;
         }
 
+        }else{
+             $login="<div class='alert alert-danger'><strong>Aviso:</strong> Error al registrar usuario.</div>";
         }
     }
 //===========================================================================
@@ -353,7 +354,7 @@ if ($_POST){
                                     setCookie("admin",$userAdmin);
                                     session_name($userAdmin);
                                  
-                                    session_start();
+                                    
                                    
 
                                         $ver_login="none";
@@ -387,3 +388,21 @@ if ($_POST){
 
 
     }
+    //===CERRAR SESION====
+  
+       //
+        
+       if (isset($_GET['close']) && $_GET['close']=1) {
+           
+                if(isset($data['user'])){
+                    session_destroy();
+                    unset($_COOKIE['usuario']);
+                    echo $_COOKIE['usuario'];
+                }
+                 if(isset($data['superuser'])){
+
+                    session_destroy();
+                     unset($_COOKIE['admin']);
+                }
+       }
+    

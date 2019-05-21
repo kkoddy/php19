@@ -4,9 +4,10 @@
 ?>
 
 
-<html lang="es">
+<html>
     <head>
         <title>Panel de administrador</title>
+         <meta charset="UTF-8"> 
         <link rel="stylesheet" href="css/estiloparcial.css" type="text/css"/>
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
@@ -67,7 +68,7 @@
                     
 
             </table>
-            <a href="index.php"><i class="btn btn-warning">Volver</i></a>
+            <a href="index.php?close=1"><i class="btn btn-warning">Volver</i></a>
         </div>
         <script type="text/javascript">
            $(document).ready(function(){

@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html lang="es">
     <head>
-        <meta charset="UTF-8">
+         <meta charset="UTF-8"> 
         <title>Anapurna Gastrobar</title>
         <meta name="Keywords" content="food"/>
         <meta name="Description" content="Restaurante anapurna"/>
@@ -30,11 +30,14 @@ and open the template in the editor.
                     <li><a href="#">Media</a></li>
                     <li><a href="#">Nosotros</a></li>
                 
-                    <li><a href="login.php"><?php if (isset($_COOKIE['usuario'])){
+                    <li><a href="_login.php"><?php if (isset($_COOKIE["usuario"])){
                         echo $_COOKIE['usuario'];
                       }else{
                         echo "Login";
+                       
                       }?></a></li>
+                    
+                    <li><a href="index.php?close=1">Cerrar sesion</a></li>
                   </ul>
                
                 

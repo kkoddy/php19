@@ -15,25 +15,26 @@ and open the template in the editor.
         <script src="js/main.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
         <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+       
     </head>
     <body>
     <?php
         include 'functions.php';
         ?>
+       
         <div id="base">
               <header>
                 <nav class="nav">
-               
                   <ul>
                     <li><a href="index.php">Bienvenido</a></li>
                     <li><a href="menu.php">Menú</a></li>
                     <li><a href="#">Media</a></li>
                     <li><a href="#">Nosotros</a></li>
-                    <li><a href="login.php"><?php if (isset($_SESSION['user'])){
-                        echo $_SESSION['user'];
-                  
+                    <li><a href="_login.php"><?php if (isset($_COOKIE["usuario"])){
+                        echo $_COOKIE['usuario'];
                       }else{
                         echo "Login";
+                       
                       }?></a></li>
                   </ul>
                
@@ -49,16 +50,16 @@ and open the template in the editor.
 
 
                   
-                            <form method="POST">
-                                Usuario:
-                                <input type="text" name="user"><br>
-                                Contraseña:
-                                <input type="password" name="pass"><br>  
-                      
-                                <input type="submit" value="Entrar"><br>       
-                            </form> 
-                              <?php echo $login;?>
-                              <input type="button" onclick="registrar()" value="Registrar">
+                        <form method="POST">
+                            Usuario:
+                            <input type="text" name="user"><br>
+                            Contraseña:
+                            <input type="password" name="pass"><br>  
+                   
+                            <input type="submit" value="Entrar"><br>       
+                        </form> 
+                          <?php echo $login;?>
+                          <input type="button" onclick="registrar()" value="Registrar">
                         </div>
                       
                         <div class="new">
