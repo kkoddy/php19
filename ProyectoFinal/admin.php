@@ -27,6 +27,7 @@
         
         ?>
         <div class="container" id="loginSuperuser" style="display:<?=$ver_login;?>">
+            <h1>Acceso restringido <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></h1>
         <div class="col-md-auto">
             <form method="POST" class="form">
                 <div class="form-group rounded">
@@ -43,6 +44,27 @@
         </div>
 
         </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <div class="table-responsive container-fluid" id="tabla_usuarios" style="display:<?=$ver_panel;?>">
               
             <h1 class="fa">Descuentos para Clientes</h1>
@@ -68,7 +90,8 @@
                     
 
             </table>
-            <a href="index.php?close=1"><i class="btn btn-warning">Volver</i></a>
+            <a href="index.php?close=1"><i class="btn btn-primary">Volver</i></a>
+            <a class="btn btn-warning" href="index.php?close=1">Cerrar sesion</a>
         </div>
         <script type="text/javascript">
            $(document).ready(function(){

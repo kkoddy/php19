@@ -93,7 +93,7 @@ if($data){
                           
                                     
                                    
-                                    setCookie("usuario",$usuario);
+                                    setCookie("usuario",$usuario,time()+3600);
                                     session_name($usuario);
                                   
                                    
@@ -351,7 +351,7 @@ if ($_POST){
                              
                                     
 
-                                    setCookie("admin",$userAdmin);
+                                    setCookie("admin",$userAdmin, time()+60);
                                     session_name($userAdmin);
                                  
                                     

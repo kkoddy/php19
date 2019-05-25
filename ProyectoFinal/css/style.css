@@ -201,3 +201,10 @@ imput{
 	  border-top-right-radius: 0;
 	}
 }
+.articulo{
+    background-color: lightgrey!important;
+    padding: 1em;
+}
+.articulo h1{
+    text-align: center;
+}
