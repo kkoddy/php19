@@ -29,7 +29,7 @@ and open the template in the editor.
                     <li><a href="menu.php">Menú</a></li>
                     <li><a href="#">Media</a></li>
                     <li><a href="#">Nosotros</a></li>
-                    <li><a href="login.php"><?php if (isset($_COOKIE['usuario'])){
+                    <li><a href="_login.php"><?php if (isset($_COOKIE['usuario'])){
                         echo $_COOKIE['usuario'];
                       }else{
                         echo "Login";
@@ -45,7 +45,7 @@ and open the template in the editor.
                </header>
                 <table>
                     <tr>
-                      <th><h2><?php echo $_GET['producto'];?></h2></th>
+                        <th><h2><?php echo getName($_GET['producto']);?></h2></th>
                       <th><h2>Comentarios</h2></th>
                       <th><h2>Votos</h2></th>
                     </tr>
@@ -73,6 +73,7 @@ and open the template in the editor.
                             <input type="radio" name="voto" value="3"> 3
                             <input type="radio" name="voto" value="4"> 4
                             <input type="radio" name="voto" value="5" checked> 5<br>
+                            <input type="text" name="comentario" placeholder="comentario"/><br>
                             <input type="submit" value="votar">       
                         </form> 
                         </td>

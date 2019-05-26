@@ -31,7 +31,7 @@ and open the template in the editor.
                     <ul>
                         <li><a href="index.php">Bienvenido</a></li>
                         <li><a href="menu.php">Menú</a></li>
-                        <li><a href="#">Media</a></li>
+                        <li><a href="#">Galeria</a></li>
                         <li><a href="#">Nosotros</a></li>
 
                         <li><a href="_login.php"><?php
@@ -53,35 +53,30 @@ and open the template in the editor.
 
                 <article class="article">
                     <div class="comment">
-                       
-                        <div class="card">
-                            
-                            <a href="valoraciones.php?producto=sopa"><img class="card-img-top" src=<?php echo getFoto('sopa'); ?> alt="art1"></a>
-                            <div class="card-body">
-                            
-                              <?php echo MejorValorado('sopa'); ?>
+                        <?php for ($i = 1; $i <= getNumProductos(); $i++) { ?>
+
+
+                            <div>
+
+                                <a href="valoraciones.php?producto=<?= $i; ?>">
+                                    <img src=<?php echo getFoto($i); ?> alt="art1">
+                                </a>
+
+    <?php
+    if (MejorValorado($i)) {
+
+        echo "<p>" . MejorValorado($i) . "</p>";
+    };
+    ?>
+
+
                             </div>
-                          </div>
-                        <div>
+    <?php
+}
+?> 
 
-                            <p><a href="valoraciones.php?producto=estofado"> <img src=<?php echo getFoto('estofado'); ?> alt="art1"><?php echo MejorValorado('estofado'); ?></a> </p>
-                        </div>
-                        <div>
 
-                            <p><a href="valoraciones.php?producto=cocido"> <img src=<?php echo getFoto('cocido'); ?> alt="art1"><?php echo MejorValorado('cocido'); ?></a> </p>
-                        </div>
-                        <div>
 
-                            <p><a href="valoraciones.php?producto=lentejas"><img src=<?php echo getFoto('lentejas'); ?> alt="art1"><?php echo MejorValorado('lentejas'); ?></a> </p>
-                        </div>
-                        <div>
-
-                            <p><a href="valoraciones.php?producto=croquetas"> <img src=<?php echo getFoto('croquetas'); ?> alt="art1"><?php echo MejorValorado('croquetas'); ?></a> </p>
-                        </div>
-                        <div>
-
-                            <p><a href="valoraciones.php?producto=pisto">  <img src=<?php echo getFoto('pisto'); ?> alt="art1"><?php echo MejorValorado('pisto'); ?></a> </p>
-                        </div>
                     </div>   
                     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>    
                     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>

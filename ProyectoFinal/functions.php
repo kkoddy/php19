@@ -1,28 +1,90 @@
 <?php
 /*Preparamos la conexion a la base de datos*/
-$host='localhost';
-$user='root';
+$host='192.168.64.2';
+$user='moya';
 $database='restaurante';
-$pass='root';
+$pass='1234';
 $link_connection="mysql:host=$host;dbname=$database;";
 //cargamos al principio la consulta que devuelve la comida mas votada y el usuario que la voto
 //$prefix=substr(uniqid('', true), -5);
 //session_id($prefix);
 //session_name('invitado');
 //session_start();
+function getName($id){
+    $host=$GLOBALS['host'];
+    $connection_string=$GLOBALS['link_connection'];
+    $user=$GLOBALS['user'];
+    $pass=$GLOBALS['pass'];
+    
+    try {
+        $pdo=new PDO($connection_string, $user, $pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $text_sql="select nombre from producto where id_producto=:id";
+        $statement=$pdo->prepare($text_sql);
+        $statement->execute([':id'=>$id]);
+                
+       while($filas_tabla=$statement->fetch(PDO::FETCH_ASSOC)){
+            //echo $filas_tabla['CLIENTE']." ".$filas_tabla['PLATO']." ".$filas_tabla['COMENTARIO']." ".$filas_tabla['VALORACION'];
+            $nombre=$filas_tabla['nombre'];
+            echo $nombre;
+           
+        }
+           
+    }
+    catch(PDOException $e){
+        echo "Ha ocurrido un error". $e->getMessage();
+    }
+    finally{
+        $pdo=null;
+        //echo "Trabajo finalizado";
+    }
+   
+    
+    
+}
+function getNumProductos(){
+    $host=$GLOBALS['host'];
+    $connection_string=$GLOBALS['link_connection'];
+    $user=$GLOBALS['user'];
+    $pass=$GLOBALS['pass'];
+    
+    try {
+        $pdo=new PDO($connection_string, $user, $pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $text_sql="select * from producto";
+        $statement=$pdo->prepare($text_sql);
+        $statement->execute();
+      
+        $cuenta_col = $statement->rowCount();
+            return $cuenta_col;
+           
+        
+    }
+    catch(PDOException $e){
+        echo "Ha ocurrido un error". $e->getMessage();
+    }
+    finally{
+        $pdo=null;
+        //echo "Trabajo finalizado";
+    }
+   
+    
+    
+}
 
 function MejorValorado($producto){
     $host=$GLOBALS['host'];
     $connection_string=$GLOBALS['link_connection'];
     $user=$GLOBALS['user'];
     $pass=$GLOBALS['pass'];
+    
     try {
         $pdo=new PDO($connection_string, $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $text_sql="SELECT usuario.nombre AS CLIENTE, comentarios.comentario AS COMENTARIO,"
                 . " producto.nombre AS PLATO,producto.foto AS FOTO,comentarios.valoracion AS VALORACION FROM comentarios, usuario, producto "
                 . "WHERE usuario.id_usu=comentarios.fk_usu AND producto.id_producto=comentarios.fk_pro AND"
-                . " producto.nombre=:producto AND"
+                . " producto.id_producto=:producto AND"
                 . " comentarios.valoracion=(SELECT MAX(valoracion) FROM comentarios);";
         $statement=$pdo->prepare($text_sql);
         $statement->execute([':producto'=>$producto]);
@@ -40,8 +102,9 @@ function MejorValorado($producto){
             $valoracion=$filas_tabla['VALORACION'];
             $foto=$filas_tabla['FOTO'];
             echo $cliente." ".$comentario." ".$valoracion;
+           
         }
-    
+        
     }
     catch(PDOException $e){
         echo "Ha ocurrido un error". $e->getMessage();
@@ -160,7 +223,7 @@ function TodosLosComentariosProducto($producto){
         $pdo=new PDO($connection_string, $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $statement=$pdo->prepare("SELECT comentarios.comentario AS comentario, producto.nombre AS producto, usuario.nombre AS usuario,  DATE_FORMAT(fecha, '%d/%m/%y %h:%m') AS fecha FROM comentarios,
-         producto, usuario WHERE comentarios.fk_pro=producto.id_producto AND  usuario.id_usu=comentarios.fk_usu AND producto.nombre=:producto;");
+         producto, usuario WHERE comentarios.fk_pro=producto.id_producto AND  usuario.id_usu=comentarios.fk_usu AND producto.id_producto=:producto;");
        $statement->execute([':producto'=>$producto]);
 
         while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){
@@ -184,7 +247,7 @@ function getPrecio($producto){
 
         $pdo=new PDO($connection_string, $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $statement=$pdo->prepare("SELECT precio FROM producto WHERE nombre=:producto");
+        $statement=$pdo->prepare("SELECT precio FROM producto WHERE id_producto=:producto");
        $statement->execute([':producto'=>$producto]);
 
         while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){
@@ -208,7 +271,7 @@ function getFoto($producto){
 
         $pdo=new PDO($connection_string, $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $statement=$pdo->prepare("SELECT foto FROM producto WHERE nombre=:producto");
+        $statement=$pdo->prepare("SELECT foto FROM producto WHERE id_producto=:producto");
        $statement->execute([':producto'=>$producto]);
 
         while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){

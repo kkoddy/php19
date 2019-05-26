@@ -29,7 +29,7 @@ and open the template in the editor.
                     <li><a href="menu.php">Menú</a></li>
                     <li><a href="#">Media</a></li>
                     <li><a href="#">Nosotros</a></li>
-                    <li><a href="login.php"><?php if (isset($_COOKIE['usuario'])){
+                    <li><a href="_login.php"><?php if (isset($_COOKIE['usuario'])){
                         echo $_COOKIE['usuario'];
                       }else{
                         echo "Login";
@@ -46,40 +46,30 @@ and open the template in the editor.
                 <table>
                     <tr>
                       <th><h2>Plato</h2></th>
-                      <th><h2>Valoracion</h2></th>
                       <th><h2>Precio</h2></th>
                     </tr>
-                    <tr>
-                      <td><p><a href="valoraciones.php?producto=sopa"><img src=<?php echo getFoto('sopa');?> alt="art1"></a></p></td>
-                      <td><p><?php echo CalcularValoracionMedia("sopa");?></p></td>
-                      
-                      <td><p><?php echo getPrecio("sopa")?></p></td>
-                    </tr>
-                    <tr>
-                     <td><p><a href="valoraciones.php?producto=cocido"><img src=<?php echo getFoto('cocido');?> alt="art1"></a></p></td>
-                     <td><p><?php echo CalcularValoracionMedia("cocido");?></p></td>
-                      
-                      <td><p><?php echo getPrecio("cocido")?></p></td>
-                    </tr>
-                    <tr>
-                     <td><p><a href="valoraciones.php?producto=estofado"><img src=<?php echo getFoto('estofado');?> alt="art1"></a></p></td>
-                     <td><p><?php echo CalcularValoracionMedia("estofado");?></p></td>
-                   
-                      <td><p><?php echo getPrecio("estofado")?></p></td>
-                    </tr>
-                    <tr>
-                     <td><p><a href="valoraciones.php?producto=pisto"><img src=<?php echo getFoto('pisto');?> alt="art1"></a></p></td>
-                     <td><p><?php echo CalcularValoracionMedia("pisto");?></p></td>
-                   
-                      <td><p><?php echo getPrecio("pisto")?></p></td>
-                    </tr>
-                    <tr>
-                     <td><p><a href="valoraciones.php?producto=lentejas"><img src=<?php echo getFoto('lentejas');?> alt="art1"></a></p></td>
-                     <td><p><?php echo CalcularValoracionMedia("lentejas");?></p></td>
-                   
-                      <td><p><?php echo getPrecio("lentejas")?></p></td>
-                    </tr>
+                        <?php for ($i = 1; $i <= getNumProductos(); $i++) { ?>
 
+
+                            <tr>
+
+                                
+                                    
+                           
+                                <td>
+                                    <p><?php echo getName($i);?></p>
+                                    <img src=<?php echo getFoto($i); ?> alt="art1">
+                                </td>
+                          
+                                <td><?=getPrecio($i);?></td>
+                            </tr>
+    
+
+
+                           
+    <?php
+}
+?> 
 
                 </table>
 

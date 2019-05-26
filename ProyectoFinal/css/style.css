@@ -98,8 +98,8 @@ article {
 }
 .article img, .menu-dia img{
   margin: auto auto;
-  height: 350px;
-  width: 500px;
+  height: 250px;
+  width: 400px;
   padding: 1em;
 }
 .article div p {
@@ -129,6 +129,9 @@ div.comment {
 div.comment div a {
 color:black;
 text-decoration: none;
+}
+div.comment div p {
+    background-color: lightgrey;
 }
 .login, .new{
   padding: 1em;
