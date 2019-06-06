@@ -25,17 +25,20 @@ body {
   margin: 0;
 }
 .nav li{
-  font-family: 'Allura';
-  font-size: 1.2em;
+  font-family:Snell Roundhand, cursive;
+  font-size: 25px!important;
   line-height: 40px;
   height: 40px;
   border-bottom: 1px solid #888;
   margin-left: 1px;
 }
- 
+h2{
+    font-family:Snell Roundhand, cursive;
+    text-transform: capitalize;
+}
 .nav a,footer a{
   text-decoration: none;
-  color: #fff;
+  color: #DEF2E4;
   display: block;
   transition: .3s background-color;
   
@@ -61,7 +64,7 @@ body {
   }
 }
 
-.nav li, footer li {
+.nav li {
     display: inline-block;
     margin-right: -4px;
   }
@@ -77,12 +80,14 @@ body {
     background-size: cover;
   }
 footer {
-
-   position: fixed;
-   bottom: 0;
-   width: 75%;
+   
    color: white;
    text-align: center;
+ 
+}
+footer li {
+    display: inline-block;
+    margin-right: 25px;
 }
 .main{
   
@@ -113,14 +118,28 @@ div.comment {
   background-image: url('../images/fondo-menu.jpg');
   background-repeat: repeat-x;
 }
+.menu-dia p{
+    background-color: #ccda81;
+    padding: 25px;
+    -webkit-box-shadow: 10px 10px 5px -7px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px -7px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px -7px rgba(0,0,0,0.75);
+    border-radius: 5px;
+}
+.menu-dia .table{
 
-.menu-dia{
-
-  min-height: 100%;
-  margin-left:5em;
-  background-image: url('../images/fondo-menu2.jpg');
-  background-repeat: repeat-y;
+ 
+ background-color: lightgrey;
+  border-radius: 15px; 
   
+  
+}
+
+.menu-dia table{
+            -webkit-box-shadow: 22px 22px 20px -2px rgba(0,0,0,0.75);
+-moz-box-shadow: 22px 22px 20px -2px rgba(0,0,0,0.75);
+box-shadow: 22px 22px 20px -2px rgba(0,0,0,0.75);
+    
 }
 
 .menu-dia table{
@@ -132,6 +151,7 @@ text-decoration: none;
 }
 div.comment div p {
     background-color: lightgrey;
+    
 }
 .login, .new{
   padding: 1em;
@@ -210,4 +230,8 @@ imput{
 }
 .articulo h1{
     text-align: center;
+}
+.valoracion{
+    display: block;
+    background-color: lightgrey;
 }
