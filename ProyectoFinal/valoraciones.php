@@ -40,18 +40,14 @@ and open the template in the editor.
      
         <div class="menu-dia">
      
-               <header>
-                  <h2>Nuestros Platos</h2>
-               </header>
-                <table>
+            <table class="table">
                     <tr>
-                        <th><h2><?php echo getName($_GET['producto']);?></h2></th>
-                      <th><h2>Comentarios</h2></th>
-                      <th><h2>Votos</h2></th>
+                        <th colspan="3"><h2><?php echo getName($_GET['producto']);?></h2></th>
+                      
                     </tr>
                     <tr>
-                      <td><p><img src=<?php echo getFoto($_GET['producto']);?> alt="art1"></p></td>
-                      <td><p><?php echo TodosLosComentariosProducto($_GET['producto']);?></p></td>
+                      <td><img src=<?php echo getFoto($_GET['producto']);?> alt="art1"></td>
+                      <td><?=TodosLosComentariosProducto($_GET['producto']);?></td>
                 
                     </tr>
                     <tr>
@@ -67,13 +63,14 @@ and open the template in the editor.
                           
                           ?>
                         <form method="POST" action="menu.php" style='display:<?php echo $verVoto;?>'>
+                            <h4>Su comentario</h4>
                             <input type="radio" name="voto" value="0"> 0
                             <input type="radio" name="voto" value="1"> 1
                             <input type="radio" name="voto" value="2"> 2
                             <input type="radio" name="voto" value="3"> 3
                             <input type="radio" name="voto" value="4"> 4
                             <input type="radio" name="voto" value="5" checked> 5<br>
-                            <input type="text" name="comentario" placeholder="comentario"/><br>
+                            <textarea name="comment" form="usrform" rows="4" cols="50"></textarea><br>
                             <input type="submit" value="votar">       
                         </form> 
                         </td>
@@ -86,14 +83,7 @@ and open the template in the editor.
 
         </div>   
             
-        <footer>
-               <ul>
-                    <li><a href="#">Aviso Legal</a></li>
-                    <li><a href="#">Copyright 2019</a></li>
-                 
-                    <li><a href="#">Contacto</a></li>
-                  </ul>
-        </footer>
+        
         </div>
 
     </body>
