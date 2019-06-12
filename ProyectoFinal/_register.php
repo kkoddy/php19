@@ -12,7 +12,7 @@
     </head>
     <body>
         <form class="form-horizontal" action='' method="POST">
-              <?php if (isset($login)){echo $login;}?>
+              <?php if (isset($alert)){echo $alert;}?>
             <fieldset>
                 <div id="legend">
                     <legend class="">Registro</legend>
@@ -38,7 +38,7 @@
                     <label class="control-label" for="newuser">Login</label>
                     <div class="controls">
                         <input type="text" id="newuser" name="newuser" placeholder="" class="input-xlarge">
-                        <p class="help-block">Usuario para entrar a la web</p>
+                       
                     </div>
                 </div>
 

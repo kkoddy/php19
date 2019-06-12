@@ -10,11 +10,10 @@ and open the template in the editor.
         <title>Anapurna Gastrobar</title>
         <meta name="Keywords" content="food"/>
         <meta name="Description" content="Restaurante anapurna"/>
-       <link rel="stylesheet" href="css/style.css" type="text/css"/>
+         <link rel="stylesheet" href="css/style.css" type="text/css"/>
         <script src="jquery-3.4.0.js" type="text/javascript"></script>
         <script src="js/main.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
-        <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+        
     </head>
     <body>
     <?php
@@ -29,11 +28,7 @@ and open the template in the editor.
                     <li><a href="menu.php">Menú</a></li>
                     <li><a href="#">Media</a></li>
                     <li><a href="#">Nosotros</a></li>
-                    <li><a href="_login.php"><?php if (isset($_COOKIE['usuario'])){
-                        echo $_COOKIE['usuario'];
-                      }else{
-                        echo "Login";
-                      }?></a></li>
+                    <li><a href="_login.php?close=0"><?=$login_actual;?></a></li>
                   </ul>
                 
                 </nav>
@@ -43,35 +38,42 @@ and open the template in the editor.
                <header>
                   <h2>Nuestros Platos</h2>
                </header>
-                <table>
-                    <tr>
-                      <th><h2>Plato</h2></th>
-                      <th><h2>Precio</h2></th>
-                    </tr>
-                        <?php for ($i = 1; $i <= getNumProductos(); $i++) { ?>
+
+            <table class="table">
+                   
+                    <tbody>
+                    <thead>
+                        <tr>
+                        <th colspan="2"><h2>Nuestros platos</h2></th>
+                      
+                        </tr>
+                    </thead>
+                        <tr>
+
+                            <?php for ($i = 1; $i <= getNumProductos(); $i++) { ?>
 
 
-                            <tr>
 
                                 
-                                    
+                           
                            
                                 <td>
-                                    <p><?php echo getName($i);?></p>
+                                   
                                     <img src=<?php echo getFoto($i); ?> alt="art1">
                                 </td>
+                                <td>
+                                      <?php echo getName($i);?>
+                                    <?=getPrecio($i);?>
+                                </td>
                           
-                                <td><?=getPrecio($i);?></td>
+                                
                             </tr>
-    
-
-
-                           
-    <?php
-}
-?> 
-
-                </table>
+                     
+                        <?php
+                            }
+                          ?> 
+                    </tbody>
+                  </table>
 
         </div>   
             

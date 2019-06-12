@@ -26,11 +26,14 @@ body {
 }
 .nav li{
   font-family:Snell Roundhand, cursive;
-  font-size: 25px!important;
+  font-size: 30px!important;
   line-height: 40px;
   height: 40px;
   border-bottom: 1px solid #888;
   margin-left: 1px;
+}
+.nav ul li:last-child{
+    font-size: 15px!important;
 }
 h2{
     font-family:Snell Roundhand, cursive;
@@ -118,7 +121,7 @@ div.comment {
   background-image: url('../images/fondo-menu.jpg');
   background-repeat: repeat-x;
 }
-.menu-dia p{
+.menu-dia p {
     background-color: #ccda81;
     padding: 25px;
     -webkit-box-shadow: 10px 10px 5px -7px rgba(0,0,0,0.75);

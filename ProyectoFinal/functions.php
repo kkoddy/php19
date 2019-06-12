@@ -1,4 +1,5 @@
 <?php
+
 /*Preparamos la conexion a la base de datos*/
 $host='192.168.64.2';
 $user='moya';
@@ -10,6 +11,11 @@ $link_connection="mysql:host=$host;dbname=$database;";
 //session_id($prefix);
 //session_name('invitado');
 //session_start();
+if ($_POST){
+    $data=$_POST;
+}else{
+    $data=$_GET;
+}
 function getName($id){
     $host=$GLOBALS['host'];
     $connection_string=$GLOBALS['link_connection'];
@@ -118,18 +124,14 @@ function MejorValorado($producto){
 
 //LOGIN DE USUARIOS
 $login="";
-if ($_POST){
-    $data=$_POST;
-}else{
-    $data=$_GET;
-}
+
 
 if($data){
    
     $usuario=isset($data['user'])?$data['user']: "";
     $contrasena=isset($data['pass'])?$data['pass']: "";
-
-
+    $login_actual=$usuario;
+    
     
  
 
@@ -157,8 +159,9 @@ if($data){
                                     
                                    
                                     setCookie("usuario",$usuario,time()+3600);
+                                    //session_destroy();
                                     session_name($usuario);
-                                  
+                                    session_start();
                                    
                                    
                                  
@@ -227,7 +230,7 @@ function TodosLosComentariosProducto($producto){
        $statement->execute([':producto'=>$producto]);
 
         while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){
-            echo $resultado_consulta["usuario"]." ".$resultado_consulta["comentario"]." ".$resultado_consulta["fecha"]."<br>";
+            echo "<p class='comment'>".$resultado_consulta["usuario"]." ".$resultado_consulta["comentario"]." ".$resultado_consulta["fecha"]."</p><br>";
         }
 
     }catch(PDOException $e){
@@ -244,14 +247,41 @@ function getPrecio($producto){
         $connection_string=$GLOBALS['link_connection'];
         $user=$GLOBALS['user'];
         $pass=$GLOBALS['pass'];
-
+        $usuario=isset($_COOKIE['usuario'])?$_COOKIE['usuario']: "";
+        $descuento=getDescuento($usuario);
+        $resta=0;
         $pdo=new PDO($connection_string, $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $statement=$pdo->prepare("SELECT precio FROM producto WHERE id_producto=:producto");
        $statement->execute([':producto'=>$producto]);
 
         while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){
-            echo $resultado_consulta["precio"]."€";
+            $resta=($resultado_consulta["precio"]*$descuento)/100;
+            echo $resultado_consulta["precio"]-$resta.' €';
+           
+        }
+
+    }catch(PDOException $e){
+            echo "Ha ocurrido un error". $e->getMessage();
+    
+    }finally{
+        $pdo=null;
+    }
+}
+function getDescuento($id){
+    try {
+        
+        $connection_string=$GLOBALS['link_connection'];
+        $user=$GLOBALS['user'];
+        $pass=$GLOBALS['pass'];
+
+        $pdo=new PDO($connection_string, $user, $pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $statement=$pdo->prepare("SELECT descuento FROM usuario WHERE login=:id_usu");
+       $statement->execute([':id_usu'=>$id]);
+
+        while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){
+            return $resultado_consulta["descuento"];
         }
 
     }catch(PDOException $e){
@@ -287,6 +317,7 @@ function getFoto($producto){
 }
 //==================REGISTRAR NUEVO USUARIO===================================
 if ($_POST){
+    $alert="";
     $newname=isset($data['newname'])?$data['newname']: "";
      $apellidos=isset($_POST['lastname'])?$data['lastname']: "";
      $mail=isset($data['mail'])?$data['mail']: "";
@@ -304,7 +335,7 @@ if ($_POST){
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $statement=$pdo->prepare("INSERT INTO usuario (nombre,login,pass,correo,apellidos,edad) VALUES (?,?,?,?,?,?)");
         $statement->execute(array($newname,$newuser,$newpass,$mail,$apellidos,$age));
-            $login="<div class='alert alert-success'><strong>Guardado:</strong> Datos guardados correctamente.</div>";
+            $alert="<div class='alert alert-success'><strong>Guardado:</strong> Datos guardados correctamente.</div>";
       
         }catch(PDOException $e){
                 echo "Ha ocurrido un error". $e->getMessage();
@@ -314,7 +345,7 @@ if ($_POST){
         }
 
         }else{
-             $login="<div class='alert alert-danger'><strong>Aviso:</strong> Error al registrar usuario.</div>";
+             $alert="<div class='alert alert-danger'><strong>Aviso:</strong> Error al registrar usuario.</div>";
         }
     }
 //===========================================================================
@@ -416,7 +447,7 @@ if ($_POST){
 
                                     setCookie("admin",$userAdmin, time()+60);
                                     session_name($userAdmin);
-                                 
+                                    session_start();
                                     
                                    
 
@@ -451,21 +482,45 @@ if ($_POST){
 
 
     }
+   
+                      if(isset($_COOKIE['usuario'])){
+                          $login_actual=$_COOKIE['usuario'];
+                      }else{
+                          $login_actual='Login';
+                      }
+
+    
+        
+        
+   
+        
+ 
+    
+      
     //===CERRAR SESION====
   
        //
-        
-       if (isset($_GET['close']) && $_GET['close']=1) {
-           
-                if(isset($data['user'])){
+       
+       if (isset($_GET['close']) && $_GET['close']==1) {
+      
+                if(isset($_COOKIE["usuario"])){
+                   
                     session_destroy();
-                    unset($_COOKIE['usuario']);
-                    echo $_COOKIE['usuario'];
+                    setcookie('usuario', "",time()-3600);
+                    setcookie('usuario', "",time()-3600);
+                    unset($_COOKIE['usuario']); 
+                    header("Location: _login.php", true, 301);
+                    exit();
+                    
                 }
-                 if(isset($data['superuser'])){
+                 if(isset($_COOKIE['admin'])){
 
                     session_destroy();
+                    setcookie('usuario', null, -1, '/');
+                    setcookie('usuario', null, -1, '/');
                      unset($_COOKIE['admin']);
+                    header("Location: _login.php", true, 301);
+                    exit();
                 }
-       }
-    
+       
+  }

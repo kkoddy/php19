@@ -34,15 +34,9 @@ and open the template in the editor.
                         <li><a href="#">Galeria</a></li>
                         <li><a href="#">Nosotros</a></li>
 
-                        <li><a href="_login.php"><?php
-                                if (isset($_COOKIE["usuario"])) {
-                                    echo $_COOKIE['usuario'];
-                                } else {
-                                    echo "Login";
-                                }
-                                ?></a></li>
+                        <li><a href="_login.php"><?=$login_actual;?></a></li>
 
-                        <li><a href="index.php?close=1">Cerrar sesion</a></li>
+                        <li><a href="index.php?close=1">Salir</a></li>
                     </ul>
 
 
@@ -65,7 +59,8 @@ and open the template in the editor.
     <?php
     if (MejorValorado($i)) {
 
-        echo "<p>" . MejorValorado($i) . "</p>";
+        ?><p class="comment"><?=MejorValorado($i);?></p>
+            <?php
     };
     ?>
 
