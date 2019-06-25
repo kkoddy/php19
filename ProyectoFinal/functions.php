@@ -225,12 +225,12 @@ function TodosLosComentariosProducto($producto){
 
         $pdo=new PDO($connection_string, $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $statement=$pdo->prepare("SELECT comentarios.comentario AS comentario, producto.nombre AS producto, usuario.nombre AS usuario,  DATE_FORMAT(fecha, '%d/%m/%y %h:%m') AS fecha FROM comentarios,
+        $statement=$pdo->prepare("SELECT comentarios.comentario AS comentario, producto.nombre AS producto, usuario.nombre AS usuario, usuario.id_usu AS id_usu, DATE_FORMAT(fecha, '%d/%m/%y %h:%m') AS fecha FROM comentarios,
          producto, usuario WHERE comentarios.fk_pro=producto.id_producto AND  usuario.id_usu=comentarios.fk_usu AND producto.id_producto=:producto;");
        $statement->execute([':producto'=>$producto]);
 
         while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){
-            echo "<p class='comment'>".$resultado_consulta["usuario"]." ".$resultado_consulta["comentario"]." ".$resultado_consulta["fecha"]."</p><br>";
+            echo "<p class='comment'><a href=".$resultado_consulta["id_usu"].">".$resultado_consulta["usuario"]."</a> ".$resultado_consulta["comentario"]." ".$resultado_consulta["fecha"]."</p><br>";
         }
 
     }catch(PDOException $e){
