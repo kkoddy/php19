@@ -7,10 +7,7 @@ $database='restaurante';
 $pass='1234';
 $link_connection="mysql:host=$host;dbname=$database;";
 //cargamos al principio la consulta que devuelve la comida mas votada y el usuario que la voto
-//$prefix=substr(uniqid('', true), -5);
-//session_id($prefix);
-//session_name('invitado');
-//session_start();
+
 if ($_POST){
     $data=$_POST;
 }else{
@@ -240,7 +237,7 @@ function TodosLosComentariosProducto($producto){
         $pdo=null;
     }
 }
-
+//EL PRECIO DE LOS PRODUCTOS VARIA EN FUNCIÓN DE LOS DESCUENTOS APLICADOS POR EL ADMIN
 function getPrecio($producto){
     try {
         
@@ -328,15 +325,19 @@ if ($_POST){
  
     if ($newname!=null && $newuser!=null && $newpass!=null && $mail!=null){
         try {
-        
-        
-
-            $pdo=new PDO($link_connection, $user, $pass);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $statement=$pdo->prepare("INSERT INTO usuario (nombre,login,pass,correo,apellidos,edad) VALUES (?,?,?,?,?,?)");
-        $statement->execute(array($newname,$newuser,$newpass,$mail,$apellidos,$age));
-            $alert="<div class='alert alert-success'><strong>Guardado:</strong> Datos guardados correctamente.</div>";
-      
+         $enlaceBD=new mysqli("192.168.64.2","moya","1234","restaurante");
+         $result=$enlaceBD->query("SELECT * FROM usuario WHERE login='".$newuser."';");
+       
+            $filas=mysqli_num_rows($result);
+            if ($filas<1){
+               $pdo=new PDO($link_connection, $user, $pass);
+               $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+               $statement=$pdo->prepare("INSERT INTO usuario (nombre,login,pass,correo,apellidos,edad) VALUES (?,?,?,?,?,?)");
+               $statement->execute(array($newname,$newuser,$newpass,$mail,$apellidos,$age));
+               $alert="<div class='alert alert-success'><strong>Registro creado:</strong> Usuario registrado correctamente.</div>";
+            }else{
+                $alert="<div class='alert alert-danger'><strong>Aviso:</strong> El usuario <strong>".$newuser."</strong> ya existe.</div>";
+            }
         }catch(PDOException $e){
                 echo "Ha ocurrido un error". $e->getMessage();
                 //echo $newname;
@@ -345,7 +346,7 @@ if ($_POST){
         }
 
         }else{
-             $alert="<div class='alert alert-danger'><strong>Aviso:</strong> Error al registrar usuario.</div>";
+             $alert="<div class='alert alert-danger'><strong>Aviso:</strong> Error al registrar usuario, por favor revise los campos con *.</div>";
         }
     }
 //===========================================================================
@@ -525,13 +526,13 @@ if ($_POST){
        
   }
   
-  
+  //====VALORACION DE PRODUCTOS
 
     try {
          $producto=isset($data['id_producto'])?$data['id_producto']:"";
         $valoracion=isset($data['voto'])?$data['voto']:"";
         $comentario=isset($data['comment'])?$data['comment']:"";
-        $dusuario=$_COOKIE["usuario"];
+        $dusuario=isset($_COOKIE["usuario"])?$_COOKIE["usuario"]:"";
         $enlaceBD=new mysqli("192.168.64.2","moya","1234","restaurante");
    
         if($producto && $dusuario){

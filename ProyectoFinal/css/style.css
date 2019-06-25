@@ -16,7 +16,14 @@ body {
 
 
 }
-
+a.user{
+    color: orange!important;
+    font-size: 18px;
+    font-family: fantasy;
+}
+a, a:hover{
+    text-decoration: none;
+}
 .nav ul, footer ul {
     list-style: none;
     background-color: #444; opacity: 0.9;
@@ -34,6 +41,7 @@ body {
 }
 .nav ul li:last-child{
     font-size: 15px!important;
+    margin-left: 50px;
 }
 h2, h3, h1{
     font-family:Snell Roundhand, cursive;
