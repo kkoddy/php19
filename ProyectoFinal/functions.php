@@ -524,3 +524,39 @@ if ($_POST){
                 }
        
   }
+  
+  
+
+    try {
+         $producto=isset($data['id_producto'])?$data['id_producto']:"";
+        $valoracion=isset($data['voto'])?$data['voto']:"";
+        $comentario=isset($data['comment'])?$data['comment']:"";
+        $dusuario=$_COOKIE["usuario"];
+        $enlaceBD=new mysqli("192.168.64.2","moya","1234","restaurante");
+   
+        if($producto && $dusuario){
+            $result=$enlaceBD->query("SELECT * FROM comentarios where fk_pro=".$producto." and fk_usu=(SELECT id_usu FROM usuario WHERE login='".$dusuario."');");
+       
+            $row=mysqli_num_rows($result);
+       
+            if($comentario){
+              if($row<1){
+                $pdo=new PDO($link_connection, $user, $pass);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $statement=$pdo->prepare("INSERT INTO comentarios (comentario, valoracion, fk_pro, fk_usu) VALUES (?,?,?,(SELECT id_usu FROM usuario WHERE login=?))");
+                $statement->execute(array($comentario,$valoracion,$producto,$dusuario));
+              }else{
+                   echo "ENTRA";
+                $pdo=new PDO($link_connection, $user, $pass);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $statement=$pdo->prepare("UPDATE comentarios set comentario=?, valoracion=? where fk_pro=? and fk_usu=(SELECT id_usu FROM usuario WHERE login=?)");
+                $statement->execute(array($comentario,$valoracion,$producto,$dusuario));
+              }
+            }
+        }
+    }catch(PDOException $e){
+            echo "Ha ocurrido un error". $e->getMessage();
+    
+    }finally{
+        $pdo=null;
+    }

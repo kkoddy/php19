@@ -62,7 +62,7 @@ and open the template in the editor.
                           
                           
                           ?>
-                        <form method="POST" action="menu.php" style='display:<?php echo $verVoto;?>'>
+                        <form method="POST" style='display:<?php echo $verVoto;?>'>
                             <h4>Su comentario</h4>
                             <input type="radio" name="voto" value="0"> 0
                             <input type="radio" name="voto" value="1"> 1
@@ -70,7 +70,8 @@ and open the template in the editor.
                             <input type="radio" name="voto" value="3"> 3
                             <input type="radio" name="voto" value="4"> 4
                             <input type="radio" name="voto" value="5" checked> 5<br>
-                            <textarea name="comment" form="usrform" rows="4" cols="50"></textarea><br>
+                            <input type="hidden" name="id_producto" value="<?=$_GET['producto']?>">
+                            <textarea name="comment" rows="4" cols="50"></textarea><br>
                             <input type="submit" value="votar">       
                         </form> 
                         </td>

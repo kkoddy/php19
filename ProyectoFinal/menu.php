@@ -36,7 +36,7 @@ and open the template in the editor.
         <div class="menu-dia">
      
                <header>
-                  <h2>Nuestros Platos</h2>
+                  <h1>Nuestros Platos</h1>
                </header>
 
             <table class="table">
@@ -44,7 +44,7 @@ and open the template in the editor.
                     <tbody>
                     <thead>
                         <tr>
-                        <th colspan="2"><h2>Nuestros platos</h2></th>
+                        <th colspan="2"><h1>Nuestros platos</h1></th>
                       
                         </tr>
                     </thead>
@@ -58,12 +58,14 @@ and open the template in the editor.
                            
                            
                                 <td>
-                                   
-                                    <img src=<?php echo getFoto($i); ?> alt="art1">
+                                    <h2><?=getName($i);?></h2>
+                                     <a href="valoraciones.php?producto=<?= $i; ?>"><img src=<?=getFoto($i); ?> alt="art1"> </a>
                                 </td>
+                               
                                 <td>
-                                      <?php echo getName($i);?>
-                                    <?=getPrecio($i);?>
+                                     
+                                    <p><?=getPrecio($i);?></p>
+                                  
                                 </td>
                           
                                 
