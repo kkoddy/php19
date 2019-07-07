@@ -88,7 +88,7 @@ function MejorValorado($producto){
                 . " producto.nombre AS PLATO,producto.foto AS FOTO,comentarios.valoracion AS VALORACION FROM comentarios, usuario, producto "
                 . "WHERE usuario.id_usu=comentarios.fk_usu AND producto.id_producto=comentarios.fk_pro AND"
                 . " producto.id_producto=:producto AND"
-                . " comentarios.valoracion=(SELECT MAX(valoracion) FROM comentarios);";
+                . " comentarios.valoracion=(SELECT MAX(valoracion) FROM comentarios) limit 1;";
         $statement=$pdo->prepare($text_sql);
         $statement->execute([':producto'=>$producto]);
         //echo "Se han recuperado ".$statement->rowCount()." entradas:\n";
@@ -104,7 +104,7 @@ function MejorValorado($producto){
             $comentario=$filas_tabla['COMENTARIO'];
             $valoracion=$filas_tabla['VALORACION'];
             $foto=$filas_tabla['FOTO'];
-            echo $cliente." ".$comentario." ".$valoracion;
+            echo "<p class='comment'><strong>".$cliente."</strong><br>".$comentario."  <br>".$valoracion." estrellas </p><br>";
            
         }
         
@@ -227,7 +227,7 @@ function TodosLosComentariosProducto($producto){
        $statement->execute([':producto'=>$producto]);
 
         while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){
-            echo "<p class='comment'><a href=".$resultado_consulta["id_usu"].">".$resultado_consulta["usuario"]."</a> ".$resultado_consulta["comentario"]." ".$resultado_consulta["fecha"]."</p><br>";
+            echo "<p class='comment'><a href=./comentarios.php?id_usu_com=".$resultado_consulta["id_usu"].">".$resultado_consulta["usuario"]."</a> ".$resultado_consulta["comentario"]." ".$resultado_consulta["fecha"]."</p><br>";
         }
 
     }catch(PDOException $e){
@@ -534,7 +534,7 @@ if ($_POST){
         $comentario=isset($data['comment'])?$data['comment']:"";
         $dusuario=isset($_COOKIE["usuario"])?$_COOKIE["usuario"]:"";
         $enlaceBD=new mysqli("192.168.64.2","moya","1234","restaurante");
-   
+      
         if($producto && $dusuario){
             $result=$enlaceBD->query("SELECT * FROM comentarios where fk_pro=".$producto." and fk_usu=(SELECT id_usu FROM usuario WHERE login='".$dusuario."');");
        
@@ -547,7 +547,7 @@ if ($_POST){
                 $statement=$pdo->prepare("INSERT INTO comentarios (comentario, valoracion, fk_pro, fk_usu) VALUES (?,?,?,(SELECT id_usu FROM usuario WHERE login=?))");
                 $statement->execute(array($comentario,$valoracion,$producto,$dusuario));
               }else{
-                   echo "ENTRA";
+                  
                 $pdo=new PDO($link_connection, $user, $pass);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $statement=$pdo->prepare("UPDATE comentarios set comentario=?, valoracion=? where fk_pro=? and fk_usu=(SELECT id_usu FROM usuario WHERE login=?)");
@@ -561,3 +561,28 @@ if ($_POST){
     }finally{
         $pdo=null;
     }
+//VER VALORACION DE UN USUARIOS
+    function getComentario($usuario){
+    try {
+       
+        $connection_string=$GLOBALS['link_connection'];
+        $user=$GLOBALS['user'];
+        $pass=$GLOBALS['pass'];
+
+        $pdo=new PDO($connection_string, $user, $pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $statement=$pdo->prepare("SELECT usuario.nombre as usuario, comentarios.comentario AS comentario, producto.nombre as producto, comentarios.fecha as fecha from comentarios INNER JOIN producto ON comentarios.fk_pro=producto.id_producto INNER JOIN usuario on  comentarios.fk_usu=usuario.id_usu where usuario.id_usu=:id_usu");
+       $statement->execute([':id_usu'=>$usuario]);
+             echo "<tr><th>Producto</th><th>comentario</th><th>Fecha</th></tr>";
+        while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){
+            
+           echo "<tr><td>".$resultado_consulta["producto"]."</td><td>".$resultado_consulta["comentario"]."</td><td>".$resultado_consulta["fecha"]."</td></tr>";
+        }
+
+    }catch(PDOException $e){
+            echo "Ha ocurrido un error". $e->getMessage();
+    
+    }finally{
+        $pdo=null;
+    }
+}

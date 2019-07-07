@@ -130,7 +130,7 @@ div.comment {
     background-image: url('../images/fondo-menu.jpg');
     background-repeat: repeat-x;
 }
-.menu-dia p {
+.menu-dia p, .valoraciones .table {
     background-color: #ccda81;
     padding: 25px;
     -webkit-box-shadow: 10px 10px 5px -7px rgba(0,0,0,0.75);
@@ -138,9 +138,9 @@ div.comment {
     box-shadow: 10px 10px 5px -7px rgba(0,0,0,0.75);
     border-radius: 5px;
 }
-.menu-dia .table{
+.menu-dia .table, .valoraciones .table, .comment p{ 
 
-
+     margin: 50px auto;
     background-color: lightgrey;
     border-radius: 15px; 
 
@@ -161,8 +161,9 @@ div.comment div a {
     color:black;
     text-decoration: none;
 }
-div.comment div p {
-    background-color: lightgrey;
+.comment p {
+   
+   margin-right: 10px!important;
 
 }
 .login, .new{

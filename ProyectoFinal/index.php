@@ -59,7 +59,7 @@ and open the template in the editor.
     <?php
     if (MejorValorado($i)) {
 
-        ?><p class="comment"><?=MejorValorado($i);?></p>
+        ?><?=MejorValorado($i);?>
             <?php
     };
     ?>

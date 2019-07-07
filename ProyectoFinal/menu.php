@@ -28,7 +28,7 @@ and open the template in the editor.
                     <li><a href="menu.php">Menú</a></li>
                     <li><a href="#">Media</a></li>
                     <li><a href="#">Nosotros</a></li>
-                    <li><a href="_login.php?close=0"><?=$login_actual;?></a></li>
+                    <li><a class='user' href="_login.php?close=0"><?=$login_actual;?></a></li>
                   </ul>
                 
                 </nav>

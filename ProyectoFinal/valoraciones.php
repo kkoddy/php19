@@ -29,7 +29,7 @@ and open the template in the editor.
                     <li><a href="menu.php">Menú</a></li>
                     <li><a href="#">Media</a></li>
                     <li><a href="#">Nosotros</a></li>
-                    <li><a href="_login.php"><?php if (isset($_COOKIE['usuario'])){
+                    <li><a class='user' href="_login.php"><?php if (isset($_COOKIE['usuario'])){
                         echo $_COOKIE['usuario'];
                       }else{
                         echo "Login";
