@@ -222,12 +222,12 @@ function TodosLosComentariosProducto($producto){
 
         $pdo=new PDO($connection_string, $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $statement=$pdo->prepare("SELECT comentarios.comentario AS comentario, producto.nombre AS producto, usuario.nombre AS usuario, usuario.id_usu AS id_usu, DATE_FORMAT(fecha, '%d/%m/%y %h:%m') AS fecha FROM comentarios,
+        $statement=$pdo->prepare("SELECT comentarios.comentario AS comentario, producto.nombre AS producto, usuario.nombre AS usuario, usuario.id_usu AS id_usu,comentarios.valoracion as voto, DATE_FORMAT(fecha, '%d/%m/%y %h:%m') AS fecha FROM comentarios,
          producto, usuario WHERE comentarios.fk_pro=producto.id_producto AND  usuario.id_usu=comentarios.fk_usu AND producto.id_producto=:producto;");
        $statement->execute([':producto'=>$producto]);
 
         while($resultado_consulta=$statement->fetch(PDO::FETCH_ASSOC)){
-            echo "<p class='comment'><a href=./comentarios.php?id_usu_com=".$resultado_consulta["id_usu"].">".$resultado_consulta["usuario"]."</a> ".$resultado_consulta["comentario"]." ".$resultado_consulta["fecha"]."</p><br>";
+            echo "<p class='comment'><a href=./comentarios.php?id_usu_com=".$resultado_consulta["id_usu"].">".$resultado_consulta["usuario"]."</a> ".$resultado_consulta["comentario"]." Puntuación: ".$resultado_consulta["voto"]."<br>".$resultado_consulta["fecha"]."</p><br>";
         }
 
     }catch(PDOException $e){
@@ -534,7 +534,7 @@ if ($_POST){
         $comentario=isset($data['comment'])?$data['comment']:"";
         $dusuario=isset($_COOKIE["usuario"])?$_COOKIE["usuario"]:"";
         $enlaceBD=new mysqli("192.168.64.2","moya","1234","restaurante");
-      
+       
         if($producto && $dusuario){
             $result=$enlaceBD->query("SELECT * FROM comentarios where fk_pro=".$producto." and fk_usu=(SELECT id_usu FROM usuario WHERE login='".$dusuario."');");
        
